@@ -1,0 +1,40 @@
+server:
+    port: ${SERVER_PORT:8080}
+
+spring:
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: ${GOOGLE_CLIENT_ID:########}
+                        client-secret: ${GOOGLE_CLIENT_SECRET:#######}
+                        redirect-uri: http://localhost:8080/login/oauth2/code/google
+                        scope: email,profile,https://www.googleapis.com/auth/calendar
+
+    #data:
+     #   mongodb:
+      #      authentication-database: admin
+       #     database: timetable
+        #    uri: mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${spring.data.mongodb.database}?authSource=${spring.data.mongodb.authentication-database}
+         #   auto-index-creation: true
+
+timefold:
+    solver:
+        termination:
+            spent-limit: 5s
+
+google:
+    calendar:
+        time-zone: America/Sao_Paulo
+        recurrence: RRULE:FREQ=WEEKLY
+        reminder: email,popup
+        base-url: https://www.googleapis.com/calendar/v3/calendars
+
+mongo:
+    host: ${MONGO_HOST:localhost}
+    port: ${MONGO_PORT:27017}
+    user: ${MONGO_USER:mongoadmin}
+    password: ${MONGO_PASSWORD:mongo}
+
+
