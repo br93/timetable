@@ -16,9 +16,6 @@ public class Lesson {
     @PlanningId
     private Long lessonId;
 
-    /*@MongoId(FieldType.OBJECT_ID)
-    private String id;*/
-
     private String subject;
 
     @PlanningVariable

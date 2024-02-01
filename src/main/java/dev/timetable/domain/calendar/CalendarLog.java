@@ -1,28 +1,26 @@
-package dev.timetable.domain.timetable;
+package dev.timetable.domain.calendar;
 
-import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-@Document(collection = "timeslots")
-public class Timeslot {
+@Document("calendar-logs")
+public class CalendarLog {
 
     @MongoId(FieldType.OBJECT_ID)
     private String id;
 
-    private LocalTime start;
-    private LocalTime end;
+    private String calendarId;
+    private List<String> eventId;
     private String createdBy;
-
-    public Timeslot(LocalTime start, LocalTime end){
-        this.start = start;
-        this.end = end;
-    }
+    
 }
