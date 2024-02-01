@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  timetable:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./docker.env
+    ports:
+      - 8080:8080
+    networks:
+      - timetable-network
+
+networks:
+  timetable-network:
+    driver: bridge
