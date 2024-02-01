@@ -12,12 +12,12 @@ spring:
                         redirect-uri: http://localhost:8080/login/oauth2/code/google
                         scope: email,profile,https://www.googleapis.com/auth/calendar
 
-    #data:
-     #   mongodb:
-      #      authentication-database: admin
-       #     database: timetable
-        #    uri: mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${spring.data.mongodb.database}?authSource=${spring.data.mongodb.authentication-database}
-         #   auto-index-creation: true
+    data:
+        mongodb:
+            authentication-database: admin
+            database: timetable
+            uri: mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${spring.data.mongodb.database}?authSource=${spring.data.mongodb.authentication-database}
+            auto-index-creation: true
 
 timefold:
     solver:
