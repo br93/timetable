@@ -16,14 +16,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/").permitAll();
-                    auth.requestMatchers("/favicon.ico").permitAll();
-                    auth.anyRequest().authenticated();
+                    auth.anyRequest().permitAll();
                 })
-                .oauth2Login(withDefaults())
-                .build();
+                .oauth2Login(oauth2 -> withDefaults())
+                .csrf(csrf -> csrf.disable()).build();
     }
-
-    
 
 }
