@@ -17,7 +17,7 @@ services:
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
     networks:
-      - timetable-network
+      - network
   
   mongo-express:
     image: mongo-express
@@ -34,12 +34,13 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - timetable-network
+      - network
 
   timetable:
     build:
       context: .
       dockerfile: ./Dockerfile
+    container_name: timetable
     env_file:
       - ./docker.env
     ports:
@@ -48,12 +49,12 @@ services:
       mongodb:
         condition: service_healthy
     networks:
-      - timetable-network
+      - network
 
 volumes:
   mongo-data:
     name: mongo-data
 
 networks:
-  timetable-network:
+  network:
     driver: bridge
