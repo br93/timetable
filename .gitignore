@@ -34,3 +34,4 @@ build/
 .env
 
 prod.env
+**/secrets.yml
