@@ -28,8 +28,8 @@ git clone https://github.com/br93/timetable.git
 ```
 
 2. Create your credentials in [Console Google Developer](https://console.cloud.google.com/apis/dashboard) and change these config in **docker.env** with the proper values
-
 <br>
+
 **Config Values**
 
 ```docker.env
