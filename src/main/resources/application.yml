@@ -4,6 +4,7 @@ server:
 spring:
     config:
         import: optional:secrets.yml
+    
     security:
         oauth2:
             client:
@@ -20,6 +21,15 @@ spring:
             database: timetable
             uri: mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${spring.data.mongodb.database}?authSource=${spring.data.mongodb.authentication-database}
             auto-index-creation: true
+
+    main:
+        allow-bean-definition-overriding: true
+
+    rabbitmq:
+        host: ${RABBITMQ_HOST:localhost}
+        port: ${RABBITMQ_PORT:5672}
+        username: ${RABBITMQ_USER:guest}
+        password: ${RABBITMQ_PASSWORD:guest}
 
 timefold:
     solver:
@@ -38,5 +48,10 @@ mongo:
     port: ${MONGO_PORT:27017}
     user: ${MONGO_USER:mongoadmin}
     password: ${MONGO_PASSWORD:mongo}
+
+rabbitmq:
+    queue-name: ${RABBITMQ_NAME:timetable-emit}
+    exchange: ${RABBITMQ_EXCHANGE:rabbit-exchange}
+    routing-key: ${RABBITMQ_KEY:routing-key}
 
 
