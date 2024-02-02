@@ -1,5 +1,6 @@
 package dev.timetable.domain.timetable;
 
+import java.time.Instant;
 import java.time.LocalTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,6 +21,7 @@ public class Timeslot {
     private LocalTime start;
     private LocalTime end;
     private String createdBy;
+    private Instant createdAt;
 
     public Timeslot(LocalTime start, LocalTime end){
         this.start = start;
