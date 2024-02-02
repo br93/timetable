@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Lesson {
 
     @PlanningId
-    private Long lessonId;
+    private String id;
 
     private String subject;
 
@@ -25,8 +25,8 @@ public class Lesson {
 
     private int level;
 
-    public Lesson(Long lessonId, String subject, Timeslot timeslot, int level){
-        this.lessonId = lessonId;
+    public Lesson(String id, String subject, Timeslot timeslot, int level){
+        this.id = id;
         this.subject = subject;
         this.timeslot = timeslot;
         this.level = level;

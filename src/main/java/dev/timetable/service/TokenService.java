@@ -9,4 +9,8 @@ public class TokenService {
     public String getToken(OAuth2AuthorizedClient authorizedClient) {
         return String.format("Bearer %s", authorizedClient.getAccessToken().getTokenValue());
     }
+
+    public String getUser(OAuth2AuthorizedClient authorizedClient) {
+        return authorizedClient.getPrincipalName();
+    }
 }
