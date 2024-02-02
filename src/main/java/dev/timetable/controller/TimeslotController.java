@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.timetable.domain.timetable.Timeslot;
 import dev.timetable.domain.timetable.dto.TimeslotRequest;
 import dev.timetable.domain.timetable.dto.TimeslotResponse;
 import dev.timetable.service.TimeslotService;
@@ -28,10 +29,10 @@ public class TimeslotController {
             @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient,
             @RequestBody TimeslotRequest request) {
 
-        var user = authorizedClient.getPrincipalName();
-        var timeslot = this.timeslotMapper.toTimeslot(request, user);
-        var newTimeslot = this.timeslotService.createTimeslot(timeslot);
-        var response = this.timeslotMapper.toTimeslotResponse(newTimeslot);
+        String user = authorizedClient.getPrincipalName();
+        Timeslot timeslot = this.timeslotMapper.toTimeslot(request, user);
+        Timeslot newTimeslot = this.timeslotService.createTimeslot(timeslot);
+        TimeslotResponse response = this.timeslotMapper.toTimeslotResponse(newTimeslot);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

@@ -42,6 +42,8 @@ google:
         recurrence: RRULE:FREQ=WEEKLY
         reminder: email,popup
         base-url: https://www.googleapis.com/calendar/v3/calendars
+        calendar-name: ${CALENDAR_NAME:Timetable}
+        calendar-description: ${CALENDAR_DESCRIPTION:Generated with Timetable app}
 
 mongo:
     host: ${MONGO_HOST:localhost}

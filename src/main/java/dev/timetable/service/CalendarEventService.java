@@ -4,26 +4,26 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import dev.timetable.client.EventClient;
+import dev.timetable.client.CalendarEventClient;
 import dev.timetable.config.GoogleCalendarConfig.CalendarProperties;
 import dev.timetable.domain.event.EventReminder;
-import dev.timetable.domain.event.EventRequest;
+import dev.timetable.domain.event.CalendarEventRequest;
 import dev.timetable.domain.event.EventResponse;
 import dev.timetable.domain.event.ItemReminder;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EventService {
+public class CalendarEventService {
     
-    private final EventClient eventClient;
+    private final CalendarEventClient eventClient;
     private final CalendarProperties properties;
 
     public EventResponse getEvent(String authorization, String calendarId, String eventId){
         return eventClient.getEvent(authorization, calendarId, eventId);
     }
 
-    public String createEvent(String authorization, String calendarId, EventRequest request){
+    public String createEvent(String authorization, String calendarId, CalendarEventRequest request){
         
         request.setRecurrence(List.of(properties.getRecurrence()));
         request.getEnd().setTimeZone(properties.getTimeZone());

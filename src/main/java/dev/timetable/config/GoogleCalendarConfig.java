@@ -23,7 +23,8 @@ public class GoogleCalendarConfig {
         private String recurrence;
         private String reminder;
         private String baseUrl;
-
+        private String calendarName;
+        private String calendarDescription;
     }
 
 }

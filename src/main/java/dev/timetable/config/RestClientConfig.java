@@ -7,7 +7,7 @@ import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import dev.timetable.client.CalendarClient;
-import dev.timetable.client.EventClient;
+import dev.timetable.client.CalendarEventClient;
 import dev.timetable.config.GoogleCalendarConfig.CalendarProperties;
 
 @Configuration
@@ -27,11 +27,11 @@ public class RestClientConfig {
     }
 
     @Bean
-    EventClient restEventClient(RestClient restClient) {
+    CalendarEventClient restCalendarEventClient(RestClient restClient) {
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient))
                 .build();
 
-        return factory.createClient(EventClient.class);
+        return factory.createClient(CalendarEventClient.class);
     }
 
 }

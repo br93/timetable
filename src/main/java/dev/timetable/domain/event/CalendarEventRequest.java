@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EventRequest {
+public class CalendarEventRequest {
     
     private EventDateTime start;
     private EventDateTime end;

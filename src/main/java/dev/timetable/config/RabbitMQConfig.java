@@ -42,7 +42,7 @@ public class RabbitMQConfig {
 
     @Bean
     TopicExchange exchange(RabbitMQProperties properties) {
-        return new TopicExchange(properties.getExchange());
+        return new TopicExchange(properties.getExchange(), false, true);
     }
 
     @Bean

@@ -21,7 +21,10 @@ public class CalendarService {
 
     public String createCalendar(String authorization, CalendarRequest request) {
 
+        request.setSummary(properties.getCalendarName());
+        request.setDescription(properties.getCalendarDescription());
         request.setTimeZone(properties.getTimeZone());
+        
         CalendarResponse calendar = calendarClient.createCalendar(authorization, request);
         return calendar.getId();
     }

@@ -9,21 +9,21 @@ import org.springframework.stereotype.Component;
 import dev.timetable.config.GoogleCalendarConfig.CalendarProperties;
 import dev.timetable.domain.event.EventDateTime;
 import dev.timetable.domain.event.EventReminder;
-import dev.timetable.domain.event.EventRequest;
+import dev.timetable.domain.event.CalendarEventRequest;
 import dev.timetable.domain.event.ItemReminder;
 import dev.timetable.domain.timetable.Lesson;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class EventMapper {
+public class CalendarEventMapper {
 
     private final CalendarProperties properties;
     private final TimeUtil timeUtil;
 
-    public EventRequest toEventRequest(Lesson lesson) {
+    public CalendarEventRequest toCalendarEventRequest(Lesson lesson) {
 
-        return new EventRequest(this.eventDateTimeBuilder(lesson.getDayOfWeek(), lesson.getTimeslot().getStart()),
+        return new CalendarEventRequest(this.eventDateTimeBuilder(lesson.getDayOfWeek(), lesson.getTimeslot().getStart()),
                 this.eventDateTimeBuilder(lesson.getDayOfWeek(), lesson.getTimeslot().getEnd()),
                 this.recurrenceBuilder(), lesson.getSubject(),
                 this.eventReminderBuilder());
