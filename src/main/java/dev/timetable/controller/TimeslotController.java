@@ -17,7 +17,7 @@ import dev.timetable.util.TimeslotMapper;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("timeslots")
+@RequestMapping("timeslot")
 @RequiredArgsConstructor
 public class TimeslotController {
 
