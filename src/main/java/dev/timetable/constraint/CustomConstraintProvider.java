@@ -26,7 +26,7 @@ public class CustomConstraintProvider implements ConstraintProvider {
     private Constraint difficultSubjectsFarApart(ConstraintFactory constraintFactory) {
         return constraintFactory.forEachUniquePair(Lesson.class, Joiners.equal(Lesson::getLevel))
                 .filter((lesson1, lesson2) -> (lesson1.getLevel() == lesson2.getLevel()) && lesson1.getLevel() == 3
-                        && lesson1.getDayOfWeek().getValue() - lesson2.getDayOfWeek().getValue() == -1)
+                        && Math.abs(lesson1.getDayOfWeek().getValue() - lesson2.getDayOfWeek().getValue()) == 1)
                 .penalize(HardSoftScore.ONE_HARD)
                 .asConstraint("Level of subject conflict");
     }
