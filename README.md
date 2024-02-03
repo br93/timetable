@@ -67,8 +67,8 @@ POST /timeslot - Create a new timeslot
 **BODY**
 ```json
 {
-  "start": "15:00:00",
-  "end": "21:00:00"
+  "start": "18:00:00",
+  "end": "20:00:00"
 }
 ```
 
@@ -98,6 +98,10 @@ POST /timetable - Create a new timetable
 	},
 	{
 		"subject": "new-lesson5",
+		"level": 2
+	},
+	{
+		"subject": "new-lessons6",
 		"level": 2
 	}
 ]
