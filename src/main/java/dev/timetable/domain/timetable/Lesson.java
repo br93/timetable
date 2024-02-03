@@ -21,6 +21,7 @@ public class Lesson {
     @PlanningVariable
     private DayOfWeek dayOfWeek;
 
+    @PlanningVariable
     private Timeslot timeslot;
 
     private int level;

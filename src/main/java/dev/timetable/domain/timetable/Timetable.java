@@ -25,7 +25,8 @@ public class Timetable {
 
     @PlanningEntityCollectionProperty
     private List<Lesson> lessons;
-
+    
+    @ValueRangeProvider
     private List<Timeslot> timeslots;
 
     @PlanningScore

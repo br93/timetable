@@ -40,15 +40,9 @@ public class TimetableController {
         String token = tokenService.getToken(authorizedClient);
         String user = tokenService.getUser(authorizedClient);
 
-        Timeslot timeslot = this.timeslotService.findMostRecentTimeslotByAuthor(user);
-        List<Timeslot> timeslots = List.of(timeslot);
-
-        List<Lesson> lessons = request.stream().map(requestObject -> {
-            Lesson lesson = lessonMapper.toLesson(requestObject);
-            lesson.setTimeslot(timeslot);
-            return lesson;
-        }).collect(Collectors.toList());
-        
+        List<Timeslot> timeslots = timeslotService.getValidTimeslots(user);
+        List<Lesson> lessons = request.stream().map(lessonMapper::toLesson).collect(Collectors.toList());
+       
         Solution solve = this.timetableService.solve("timetable", lessons, timeslots, user);    
         return this.solutionService.createSolution(solve, token, user);
     }

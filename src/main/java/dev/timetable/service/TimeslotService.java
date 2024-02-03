@@ -1,5 +1,7 @@
 package dev.timetable.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import dev.timetable.domain.timetable.Timeslot;
@@ -28,5 +30,11 @@ public class TimeslotService {
         return this.timeslotRepository.findByCreatedByOrderByCreatedAtDesc(author).stream().findFirst()
                 .orElseThrow(
                         () -> new EntityNotFoundException(messageUtil.notFoundMessage("Timeslot", "author", author)));
+    }
+
+    public List<Timeslot> getValidTimeslots(String author) {
+        Timeslot timeslot = this.findMostRecentTimeslotByAuthor(author);
+        return List.of(timeslot, new Timeslot(timeslot.getStart(), timeslot.getEnd().minusHours(1L)),
+                new Timeslot(timeslot.getStart().plusHours(1L), timeslot.getEnd()));
     }
 }
