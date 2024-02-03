@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,10 @@ import dev.timetable.domain.timetable.dto.TimeslotRequest;
 import dev.timetable.domain.timetable.dto.TimeslotResponse;
 import dev.timetable.service.TimeslotService;
 import dev.timetable.util.TimeslotMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping("timeslot")
 @RequiredArgsConstructor
@@ -27,7 +30,7 @@ public class TimeslotController {
     @PostMapping
     public ResponseEntity<TimeslotResponse> createTimeslot(
             @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient,
-            @RequestBody TimeslotRequest request) {
+            @Valid @RequestBody TimeslotRequest request) {
 
         String user = authorizedClient.getPrincipalName();
         Timeslot timeslot = this.timeslotMapper.toTimeslot(request, user);

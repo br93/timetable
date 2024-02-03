@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,10 @@ import dev.timetable.service.TimeslotService;
 import dev.timetable.service.TimetableService;
 import dev.timetable.service.TokenService;
 import dev.timetable.util.LessonMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@Validated
 @RestController
 @RequestMapping("timetable")
 @RequiredArgsConstructor
@@ -35,7 +38,7 @@ public class TimetableController {
 
     @PostMapping
     public Solution timetable(@RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient authorizedClient,
-            @RequestBody List<LessonRequest> request) {
+            @RequestBody List<@Valid LessonRequest> request) {
 
         String token = tokenService.getToken(authorizedClient);
         String user = tokenService.getUser(authorizedClient);
