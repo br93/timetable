@@ -1,7 +1,6 @@
 package dev.timetable.controller;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
