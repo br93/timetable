@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Timetable
+  version: 1.0.0
+servers: 
+  - url: http://localhost:8080
+    description: Development server
+security:
+  - OAuth2:
+      - openid
+      - email
+      - https://www.googleapis.com/auth/calendar
+  
+paths:
+  /auth:
+    get:
+      summary: Hello World Endpoint
+      description: Returns a simple greeting
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Welcome, 102901920191
+                
+  /timeslot:
+    post:
+      summary: Create timeslot
+      description: Returns timeslot created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start:
+                  type: string
+                  format: time
+                  example: "18:00:00"
+                end:
+                  type: string
+                  format: time
+                  example: "20:00:00"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  start:
+                    type: string
+                    format: time
+                    example: "18:00:00"
+                  end:
+                    type: string
+                    format: time
+                    example: "20:00:00"
+                  createdBy:
+                    type: string
+                    example: "102901920191"
+                  createdAt:
+                    type: string
+                    format: instant
+                    example: "2024-02-02T02:04:14.845Z"
+  /timetable:
+    post:
+      summary: Create timetable
+      description: Generate timetable recommendation from list of lessons
+      requestBody:
+        content:
+          application/json:
+            example: [
+              {
+                "subject": "new-lesson1",
+                "level": 1
+              },
+              {
+                "subject": "new-lesson2",
+                "level": 2
+              },
+              {
+                "subject": "new-lesson3",
+                "level": 3
+              },
+              {
+                "subject": "new-lesson4",
+                "level": 3
+              },
+              {
+                "subject": "new-lesson5",
+                "level": 2
+              }
+            ]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: id
+                    example: "65bc4d9edba9465133d75cb8"
+                  createdBy:
+                    type: string
+                    example: "102901920191"
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://www.googleapis.com/oauth2/v4/token
+          scopes:
+            openid: Access to basic profile information
+            email: Access to user's email address
+            https://www.googleapis.com/auth/calendar: Access to user's calendar
+          
+
+
+
+
+

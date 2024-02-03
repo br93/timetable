@@ -53,6 +53,7 @@ docker compose up -d
 ## Usage
 
 1. The Spring Boot app will be accessible at http://localhost:8080
+	1.1. Swagger documentation: 
 2. MongoExpress will be accessible at http://localhost:8081
 3. RabbitMQ will be accessible at http://localhost:15672
 
