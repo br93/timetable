@@ -102,10 +102,12 @@ POST /timetable - Create a new timetable
 	}
 ]
 ```
-Timetable will be generated using Timefold with following constraints:
-- One lesson per day
+Timetable will be generated for up to 10 lessons (5 lesson optional) using Timefold with following constraints:
+- One lesson per day (when optional)
 - Difficult lessons apart from each other during the week
 - Easier lessons on Friday
+- If more than 5 lessons, avoid two difficult lessons in the same day
+- Avoid two lessons on Friday
 
 ![Timetable](https://raw.githubusercontent.com/br93/timetable/main/doc/calendar.png)
 
