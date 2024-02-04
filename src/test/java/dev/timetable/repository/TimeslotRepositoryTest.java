@@ -17,7 +17,7 @@ import dev.timetable.container.MongoDBTestContainer;
 import dev.timetable.domain.timetable.Timeslot;
 
 @DataMongoTest
-class TimeslotRepositoryTest extends MongoDBTestContainer{
+class TimeslotRepositoryTest extends MongoDBTestContainer {
 
     @Autowired
     private TimeslotRepository timeslotRepository;
@@ -53,5 +53,12 @@ class TimeslotRepositoryTest extends MongoDBTestContainer{
 
         List<Timeslot> timeslots = timeslotRepository.findByCreatedByOrderByCreatedAtDesc(owner);
         assertEquals(2, timeslots.size());
+    }
+
+    @Test
+    void findByCreatedByOrderByCreatedAtDescShoudlReturnOrderedTimeslots() {
+
+        List<Timeslot> timeslots = timeslotRepository.findByCreatedByOrderByCreatedAtDesc(owner);
+        assertEquals(timeslots.get(0).getCreatedAt().getEpochSecond(), mockTimeslot2.getCreatedAt().getEpochSecond());
     }
 }
