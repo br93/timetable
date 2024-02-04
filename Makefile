@@ -1,4 +1,4 @@
-up:
+up: build
 	@echo "Starting services..."
 	docker compose up -d
 	@echo "Done"
@@ -6,6 +6,11 @@ up:
 down:
 	@echo "Stopping services..."
 	docker compose down
+	@echo "Done"
+
+build:
+	@echo "Building Spring Boot service..."
+	mvn clean package
 	@echo "Done"
 	
 logs:
