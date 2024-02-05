@@ -47,7 +47,7 @@ class CalendarServiceTest {
     }
 
     @Test
-    void createCalendarShouldReturnCalendarResponse(){
+    void createCalendarShouldReturnCalendarResponseId(){
         Mockito.when(calendarClient.createCalendar(anyString(), any(CalendarRequest.class))).thenReturn(mockResponse);
         Assertions.assertEquals(MOCK_ID, this.calendarService.createCalendar(MOCK_TOKEN, mockRequest));
     }
