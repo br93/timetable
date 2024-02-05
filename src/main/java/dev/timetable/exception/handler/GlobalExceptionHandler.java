@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import dev.timetable.exception.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
@@ -17,6 +18,7 @@ import jakarta.validation.ConstraintViolationException;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final String URI_BAD_REQUEST = "https://httpstatuses.com/400";
+    private static final String URI_NOT_FOUND = "https://httpstatuses.com/404";
 
     @ExceptionHandler({ ConstraintViolationException.class })
     public ProblemDetail handleConstraintViolationException (ConstraintViolationException exception) {
@@ -31,6 +33,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, builder.toString());
         problemDetail.setType(URI.create(URI_BAD_REQUEST));
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler({ EntityNotFoundException.class })
+    public ProblemDetail handleEntityNotFoundException (EntityNotFoundException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+        problemDetail.setType(URI.create(URI_NOT_FOUND));
 
         return problemDetail;
     }
