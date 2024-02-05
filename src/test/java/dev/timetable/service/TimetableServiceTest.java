@@ -1,7 +1,6 @@
 package dev.timetable.service;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 
 import java.time.DayOfWeek;
 import java.util.Arrays;
@@ -11,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +32,9 @@ class TimetableServiceTest {
 
     @MockBean
     private SolverManager<Timetable, String> mockSolverManager;
+
+    @Mock
+    private SolverJob<Timetable, String> job;
 
     private static final String MOCK_NAME = "TEST-TIMETABLE";
     private static final String MOCK_AUTHOR = "TEST-AUTHOR";
@@ -64,7 +67,7 @@ class TimetableServiceTest {
     void solveShouldReturnSolution() throws InterruptedException, ExecutionException {
         
         Timetable solved = new Timetable(MOCK_NAME, solvedLessons, timeslots);
-        Mockito.when(mockSolverManager.solve(any(), any())).thenReturn(mock(SolverJob.class));
+        Mockito.when(mockSolverManager.solve(any(), any())).thenReturn(job);
         Mockito.when(mockSolverManager.solve(any(), any()).getFinalBestSolution()).thenReturn(solved);
 
         Assertions.assertEquals(solution, this.timetableService.solve(MOCK_NAME, lessons, timeslots, MOCK_AUTHOR));  
@@ -72,14 +75,14 @@ class TimetableServiceTest {
 
     @Test
     void solveShouldThrowSolverExceptionWhenSolverFails() throws InterruptedException, ExecutionException {
-        Mockito.when(mockSolverManager.solve(any(), any())).thenReturn(mock(SolverJob.class));
+        Mockito.when(mockSolverManager.solve(any(), any())).thenReturn(job);
         Mockito.when(mockSolverManager.solve(any(), any()).getFinalBestSolution()).thenThrow(new InterruptedException(MOCK_ERROR));
         Assertions.assertThrowsExactly(SolverException.class, () -> timetableService.solve(MOCK_NAME, lessons, timeslots, MOCK_AUTHOR));
     }
 
     @Test
     void solveShouldThrowSolverExceptionWithCustomMessage() throws InterruptedException, ExecutionException {
-        Mockito.when(mockSolverManager.solve(any(), any())).thenReturn(mock(SolverJob.class));
+        Mockito.when(mockSolverManager.solve(any(), any())).thenReturn(job);
         Mockito.when(mockSolverManager.solve(any(), any()).getFinalBestSolution()).thenThrow(new InterruptedException(MOCK_ERROR));
         Exception exception = Assertions.assertThrows(SolverException.class,
                 () -> timetableService.solve(MOCK_NAME, lessons, timeslots, MOCK_AUTHOR));
