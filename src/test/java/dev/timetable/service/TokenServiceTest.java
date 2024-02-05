@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 
@@ -16,17 +17,16 @@ class TokenServiceTest {
     @Autowired
     private TokenService tokenService;
 
-    private OAuth2AccessToken mockAccessToken;
+    @MockBean
     private OAuth2AuthorizedClient mockAuthorizedClient;
     
+    private OAuth2AccessToken mockAccessToken;
     private static final String MOCK_TOKEN = "TEST-TOKEN-VALUE";
     private static final String MOCK_USER = "TEST-USER";
 
     @BeforeEach
     void setup() {
-
         mockAccessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, MOCK_TOKEN, null, null);
-        mockAuthorizedClient = Mockito.mock(OAuth2AuthorizedClient.class);
     }
 
     @Test
