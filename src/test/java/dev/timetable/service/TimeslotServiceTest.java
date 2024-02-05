@@ -1,5 +1,6 @@
 package dev.timetable.service;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,15 +31,16 @@ class TimeslotServiceTest {
     @MockBean
     private TimeslotRepository timeslotRepository;
 
-    @MockBean
-    private MessageUtil messageUtil;
-
     private Timeslot mockTimeslot;
     private Timeslot mockTimeslotFirst;
     private Timeslot mockTimeslotLast;
 
     private static final String MOCK_ID = "MOCK-ID";
     private static final String MOCK_AUTHOR = "MOCK-AUTHOR";
+
+    private static final String EXCEPTION_MESSAGE_ID = String.format("Timeslot with id %s not found", MOCK_ID);
+    private static final String EXCEPTION_MESSAGE_AUTHOR = String.format("Timeslot with author %s not found",
+            MOCK_AUTHOR);
 
     @BeforeEach
     void setup() {
@@ -65,6 +68,14 @@ class TimeslotServiceTest {
     }
 
     @Test
+    void findTimeslotByIdShouldThrowExceptionWithCustomMessage() {
+        Exception exception = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> this.timeslotService.findTimeslotById(MOCK_ID));
+
+       Assertions.assertTrue(exception.getMessage().contains(EXCEPTION_MESSAGE_ID));
+    }
+
+    @Test
     void findMostRecentTimeslotByAuthorShouldReturnTimeslot() {
         Mockito.when(this.timeslotRepository.findByCreatedByOrderByCreatedAtDesc(anyString())).thenReturn(
                 List.of(mockTimeslot));
@@ -75,6 +86,14 @@ class TimeslotServiceTest {
     void findMostRecentTimeslotByAuthorShouldThrowEntityNotFoundIfNotFound() {
         Assertions.assertThrowsExactly(EntityNotFoundException.class,
                 () -> this.timeslotService.findMostRecentTimeslotByAuthor(MOCK_AUTHOR));
+    }
+
+    @Test
+    void findMostRecentTimeslotByAuthorShouldThrowExceptionWithCustomMessage() {
+        Exception exception = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> this.timeslotService.findMostRecentTimeslotByAuthor(MOCK_AUTHOR));
+
+       Assertions.assertTrue(exception.getMessage().contains(EXCEPTION_MESSAGE_AUTHOR));
     }
 
     @Test
@@ -94,6 +113,14 @@ class TimeslotServiceTest {
     void getValidTimeslotsShouldThrowEntityNotFoundIfNotFound() {
         Assertions.assertThrowsExactly(EntityNotFoundException.class,
                 () -> this.timeslotService.getValidTimeslots(MOCK_AUTHOR));
+    }
+
+    @Test
+    void getValidTimeslotsShouldThrowExceptionWithCustomMessage() {
+        Exception exception = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> this.timeslotService.getValidTimeslots(MOCK_AUTHOR));
+
+       Assertions.assertTrue(exception.getMessage().contains(EXCEPTION_MESSAGE_AUTHOR));
     }
 
 }
