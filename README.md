@@ -15,8 +15,7 @@ The application was developed to help create a timetable using AI optimization a
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Database](#database)
+- [Endpoints](#endpoints)
 - [Contributing](#contributing)
 
 ## Installation
@@ -47,6 +46,7 @@ make up
 
 **Docker Compose**
 ```
+mvn clean package
 docker compose up -d
 ```
 
